@@ -17,16 +17,14 @@ module Bowling
     def score
       cur_score = 0
       @frames.each_with_index do |frame, index|
-        if frame.complete?
-          if frame_and_next_are_strikes_and_have_next_frame(frame, index)
-            cur_score += frame.raw_score + next_frame(index).raw_score + next_frame(index+2).first_roll
-          elsif frame_is_strike_and_next_is_not_strike(frame, index)
-            cur_score += frame.raw_score + next_frame(index).raw_score
-          elsif frame_is_spare_and_have_next_frame(frame, index)
-            cur_score += frame.raw_score + next_frame(index).first_roll
-          else
-            cur_score += frame.raw_score
-          end
+        if frame_and_next_are_strikes_and_have_next_frame(frame, index)
+          cur_score += frame.raw_score + next_frame(index).raw_score + next_frame(index+1).first_roll
+        elsif frame_is_strike_and_next_is_not_strike(frame, index)
+          cur_score += frame.raw_score + next_frame(index).raw_score
+        elsif frame_is_spare_and_have_next_frame(frame, index)
+          cur_score += frame.raw_score + next_frame(index).first_roll
+        elsif frame.open?
+          cur_score += frame.raw_score
         end
       end
 
@@ -46,7 +44,7 @@ module Bowling
     end
 
     def update_frame
-      if @frames.empty? or cur_frame.complete?
+      if @frames.empty? or cur_frame.strike? or cur_frame.spare? or cur_frame.open?
         @frames.push(Frame.new)
       end
     end

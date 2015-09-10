@@ -4,10 +4,10 @@ describe Bowling::Frame do
   it "works with no rolls" do
     frame = Bowling::Frame.new
 
-    frame.complete?.should be_false
+    frame.open?.should be_false
     frame.strike?.should be_false
     frame.spare?.should be_false
-    frame.raw_score.should eq(nil)
+    frame.raw_score.should eq(0)
   end
 
   it "works with one roll" do
@@ -15,10 +15,10 @@ describe Bowling::Frame do
 
     frame.roll(5)
 
-    frame.complete?.should be_false
+    frame.open?.should be_false
     frame.strike?.should be_false
     frame.spare?.should be_false
-    frame.raw_score.should eq(nil)
+    frame.raw_score.should eq(5)
   end
 
   it "works for open frame 9" do
@@ -27,7 +27,7 @@ describe Bowling::Frame do
     frame.roll(5)
     frame.roll(4)
 
-    frame.complete?.should be_true
+    frame.open?.should be_true
     frame.strike?.should be_false
     frame.spare?.should be_false
     frame.raw_score.should eq(9)
@@ -39,7 +39,7 @@ describe Bowling::Frame do
     frame.roll(0)
     frame.roll(1)
 
-    frame.complete?.should be_true
+    frame.open?.should be_true
     frame.strike?.should be_false
     frame.spare?.should be_false
     frame.raw_score.should eq(1)
@@ -50,7 +50,7 @@ describe Bowling::Frame do
 
     frame.roll(10)
 
-    frame.complete?.should be_true
+    frame.open?.should be_false
     frame.strike?.should be_true
     frame.spare?.should be_false
 
@@ -63,7 +63,7 @@ describe Bowling::Frame do
     frame.roll(9)
     frame.roll(1)
 
-    frame.complete?.should be_true
+    frame.open?.should be_false
     frame.strike?.should be_false
     frame.spare?.should be_true
 
@@ -76,7 +76,7 @@ describe Bowling::Frame do
     frame.roll(0)
     frame.roll(0)
 
-    frame.complete?.should be_true
+    frame.open?.should be_true
     frame.strike?.should be_false
     frame.spare?.should be_false
 

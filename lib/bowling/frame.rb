@@ -17,15 +17,18 @@ module Bowling
     end
 
     def raw_score
-      if complete?
-        (if strike? then @first_roll else @first_roll + @second_roll end)
-      else
-        nil
+      score = 0
+      if !@first_roll.nil?
+        score += @first_roll
       end
+      if !@second_roll.nil?
+        score += @second_roll
+      end
+      score
     end 
 
-    def complete?
-      strike? or (!@first_roll.nil? and !@second_roll.nil?)
+    def open?
+      !strike? and !spare? and !@first_roll.nil? and !@second_roll.nil?
     end
 
     def strike?

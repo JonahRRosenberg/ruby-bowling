@@ -33,7 +33,7 @@ describe Bowling::Game do
     game.roll(10)
     game.roll(1)
     game.roll(7)
-    game.score.should eq(20 + 8)
+    game.score.should eq(18 + 8)
   end
 
   it "works with a turkey" do
@@ -50,6 +50,6 @@ describe Bowling::Game do
     game.roll(10)
     game.roll(10)
     game.roll(10)
-    game.score.should eq(40)
+    game.score.should eq(60)
   end
 end
