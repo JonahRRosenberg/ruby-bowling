@@ -142,7 +142,43 @@ describe Bowling::Game do
 
     game.score.should eq(82)
 
-    scores_by_frame = [9, 17, 24, 33, 42, 50, 57, 65, 73, 82]
+    scores_by_frame = [ 9, 17, 24, 33, 42, 50, 57, 65, 73, 82 ]
+
+    scores_by_frame.each_with_index do |score, index|
+      game.score(index+1).should eq(score)
+    end
+
+    game.complete?.should be_true
+  end
+
+  it "works with example two" do
+    game = Bowling::Game.new
+    rolls = [ 9, 0, 3, 7, 6, 1, 3, 7, 8, 1, 5, 5, 0, 10, 8, 0, 7, 3, 8, 1 ]
+    rolls.each do |roll|
+      game.roll(roll)
+    end
+
+    game.score.should eq(122)
+
+    scores_by_frame = [ 9, 25, 32, 50, 59, 69, 87, 95, 113, 122 ]
+
+    scores_by_frame.each_with_index do |score, index|
+      game.score(index+1).should eq(score)
+    end
+
+    game.complete?.should be_true
+  end
+
+  it "works with example three" do
+    game = Bowling::Game.new
+    rolls = [ 10, 3, 7, 6, 1, 10, 10, 10, 2, 8, 9, 0, 7, 3, 10, 10, 10 ]
+    rolls.each do |roll|
+      game.roll(roll)
+    end
+
+    game.score.should eq(193)
+
+    scores_by_frame = [ 20, 36, 43, 73, 95, 115, 134, 143, 163, 193 ]
 
     scores_by_frame.each_with_index do |score, index|
       game.score(index+1).should eq(score)
