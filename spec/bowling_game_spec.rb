@@ -7,6 +7,8 @@ describe Bowling::Game do
     game.roll(5)
     game.roll(1)
     game.score.should eq(5 + 1)
+
+    game.complete?.should be_false
   end
 
   it "works with a spare and open frame" do
@@ -51,5 +53,33 @@ describe Bowling::Game do
     game.roll(10)
     game.roll(10)
     game.score.should eq(60)
+  end
+
+  it "works with a perfect game" do
+    game = Bowling::Game.new
+    (1..12).each do |i|
+      game.roll(10)
+    end
+    game.score.should eq(300)
+
+    game.complete?.should be_true
+  end
+
+  it "works with example one" do
+    game = Bowling::Game.new
+    rolls = [ 9, 0, 3, 5, 6, 1, 3, 6, 8, 1, 5, 3, 2, 5, 8, 0, 7, 1, 8, 1 ]
+    rolls.each do |roll|
+      game.roll(roll)
+    end
+
+    game.score.should eq(82)
+
+    scores_by_frame = [9, 17, 24, 33, 42, 50, 57, 65, 73, 82]
+
+    scores_by_frame.each_with_index do |score, index|
+      game.score(index+1).should eq(score)
+    end
+
+    game.complete?.should be_true
   end
 end
