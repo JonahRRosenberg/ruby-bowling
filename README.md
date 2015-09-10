@@ -1,3 +1,5 @@
+* Run `rspec` to run tests with examples
+
 THE GAME OF BOWLING
 ===================
 
