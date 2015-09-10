@@ -2,6 +2,8 @@ require_relative './frame'
 
 module Bowling
   class Game
+    NUM_FRAMES = 10
+
     def initialize
       @frames = []
     end
@@ -14,7 +16,7 @@ module Bowling
 
     end
 
-    def score(through_frame=[@frames.size, 10].min)
+    def score(through_frame=[@frames.size, NUM_FRAMES].min)
       cur_score = 0
       (0..(through_frame-1)).each do |index|
         frame = cur_frame(index)
@@ -75,19 +77,26 @@ module Bowling
     end
 
     def tenth_frame_is_open
-      @frames.size == 10 and @frames[9].open?
+      @frames.size == NUM_FRAMES and @frames[NUM_FRAMES-1].open?
     end
 
     def tenth_frame_is_spare_and_eleventh_is_single_roll
-      @frames.size == 11 and @frames[9].spare? and !@frames[10].first_roll.nil?
+      (@frames.size == NUM_FRAMES+1 and
+       @frames[NUM_FRAMES-1].spare? and
+       !@frames[NUM_FRAMES].first_roll.nil?)
     end
 
     def tenth_frame_is_strike_and_eleventh_is_open
-      @frames.size == 11 and @frames[9].strike? and @frames[10].open?
+      (@frames.size == NUM_FRAMES+1 and
+       @frames[NUM_FRAMES-1].strike? and
+       @frames[NUM_FRAMES].open?)
     end
 
     def tenth_frame_is_strike_and_eleventh_is_strike_and_twelth_is_single_roll
-      @frames.size == 12 and @frames[9].strike? and @frames[10].strike? and !@frames[11].first_roll.nil?
+      (@frames.size == NUM_FRAMES+2 and
+       @frames[NUM_FRAMES-1].strike? and
+       @frames[NUM_FRAMES].strike? and
+       !@frames[NUM_FRAMES+1].first_roll.nil?)
     end
 
   end

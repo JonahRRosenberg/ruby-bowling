@@ -1,5 +1,7 @@
 module Bowling
   class Frame
+    MAX_POINTS = 10
+
     attr_reader :first_roll
     attr_reader :second_roll
 
@@ -32,11 +34,11 @@ module Bowling
     end
 
     def strike?
-      @first_roll == 10
+      @first_roll == MAX_POINTS
     end
 
     def spare?
-      !strike? and !@first_roll.nil? and raw_score == 10
+      !strike? and !@first_roll.nil? and raw_score == MAX_POINTS
     end
 
   end
