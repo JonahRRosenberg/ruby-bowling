@@ -65,6 +65,74 @@ describe Bowling::Game do
     game.complete?.should be_true
   end
 
+  it "works when last frame is open" do
+    game = Bowling::Game.new
+    (1..9).each do |i|
+      game.roll(0)
+      game.roll(0)
+    end
+
+    game.complete?.should be_false
+
+    game.roll(5)
+    game.roll(3)
+
+    game.score.should eq(8)
+
+    game.complete?.should be_true
+  end
+
+  it "works when last frame is spare" do
+    game = Bowling::Game.new
+    (1..9).each do |i|
+      game.roll(0)
+      game.roll(0)
+    end
+
+    game.roll(2)
+    game.roll(8)
+
+    game.roll(7)
+
+    game.score.should eq(17)
+
+    game.complete?.should be_true
+  end
+
+  it "works when last frame is strike and 11th is open" do
+    game = Bowling::Game.new
+    (1..9).each do |i|
+      game.roll(0)
+      game.roll(0)
+    end
+
+    game.roll(10)
+
+    game.roll(1)
+    game.roll(7)
+
+    game.score.should eq(18)
+
+    game.complete?.should be_true
+  end
+  
+  it "works when last frame is two strikes, then open" do
+    game = Bowling::Game.new
+    (1..9).each do |i|
+      game.roll(0)
+      game.roll(0)
+    end
+
+    game.roll(10)
+    game.roll(10)
+
+    game.roll(3)
+
+    game.score.should eq(23)
+
+    game.complete?.should be_true
+  end
+
   it "works with example one" do
     game = Bowling::Game.new
     rolls = [ 9, 0, 3, 5, 6, 1, 3, 6, 8, 1, 5, 3, 2, 5, 8, 0, 7, 1, 8, 1 ]

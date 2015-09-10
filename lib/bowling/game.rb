@@ -14,7 +14,7 @@ module Bowling
 
     end
 
-    def score(through_frame=@frames.size)
+    def score(through_frame=[@frames.size, 10].min)
       cur_score = 0
       (0..(through_frame-1)).each do |index|
         frame = cur_frame(index)
