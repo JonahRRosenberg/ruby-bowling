@@ -7,7 +7,15 @@ describe Bowling::Game do
     game.roll(5)
     game.roll(1)
     game.score.should eq(6)
-    game.cur_frame.should eq(2)
+  end
+
+  it "works with a spare" do
+    game = Bowling::Game.new
+    game.roll(4)
+    game.roll(6)
+    game.roll(7)
+    game.roll(2)
+    game.score.should eq(26)
   end
 
   it "works with a strike" do
@@ -16,6 +24,5 @@ describe Bowling::Game do
     game.roll(1)
     game.roll(7)
     game.score.should eq(26)
-    game.cur_frame.should eq(2)
   end
 end

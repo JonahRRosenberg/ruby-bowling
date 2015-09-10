@@ -13,6 +13,8 @@ test/version_tmp
 tmp
 .rbenv-version
 Gemfile.lock
+*.swp
+*.swo
 
 # YARD artifacts
 .yardoc

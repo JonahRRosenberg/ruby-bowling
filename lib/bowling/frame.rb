@@ -1,5 +1,8 @@
 module Bowling
   class Frame
+    attr_reader :first_roll
+    attr_reader :second_roll
+
     def initialize
       @first_roll = nil
       @second_roll = nil
